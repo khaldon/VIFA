@@ -1,0 +1,7 @@
+*.log 
+*.pyc
+*.vscode/
+.env
+*.env
+migrations/
+media/
