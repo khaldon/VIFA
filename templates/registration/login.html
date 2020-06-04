@@ -1,0 +1,60 @@
+{% include 'css.html'%}
+
+
+<style media="screen">
+  body > .grid{
+    height:100%;
+  }
+  body{
+    background-color:#f2f2f2;
+  }
+</style>
+<body>
+  <div class="ui three column center aligned  middle aligned grid">
+    <div class="ui column ">
+        <h2 class="ui teal header" >Log-in to your account</h2>
+        <form method="POST" class="ui form">
+          {% csrf_token  %}
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="mail icon"></i>
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        {{ form.password }}
+                      </div>
+                </div>
+                <button class="ui teal button fluid">Login</button>
+                <div class="ui horizontal divider">
+                  Or LOGIN
+                </div>
+                <div class="field" style="margin-top: 12px;">
+                  <a href=""><i class="big blue facebook icon"></i></a>
+                  <a href=""><i class="big black github icon"></i></a>
+                  <a href=""><i class="big red google icon"></i></a>
+                </div>
+                <a href="{% url 'users:password_reset' %}">Forget you password ?</a>
+            </div>
+        </form>
+        <div class="ui message">Don't have account ?  Sign up <a  href="{% url 'users:teacher_signup' %}">As teacher</a> or <a  href="{% url 'users:student_signup' %}">As student</a></div>
+       
+       {% if form.non_field_errors or form.username.errors or form.password.errors  %}
+       <div class="ui red message">
+        {{form.non_field_errors}}
+        {{form.username.errors}}
+        {{form.password.errors}}
+       </div>
+
+       {% endif %}
+         
+     
+       
+    </div>
+</div>
+</body>
+
+{% include "footer.html" %}

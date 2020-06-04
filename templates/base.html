@@ -1,0 +1,19 @@
+<html>
+    <head>
+        {% include "css.html" %}
+        {% include "js.html" %}
+        <title>
+            {% block title %}{% endblock title %}
+        </title>
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+
+        <div class="ui container" >
+            {% block content %}{% endblock content %}
+           
+        </div>
+        {% include "footer.html" %}
+    </body>
+</html>
