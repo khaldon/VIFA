@@ -5,69 +5,15 @@
         <title>
             {% block title %}{% endblock title %}
         </title>
-    <style>
-        body, html {height: 100%;}
-    </style>
-    <script>
-
-        $(document).ready(function(){
-            $('.rating')
-          .rating({
-            initialRating: 3,
-            maxRating: 5
-          });
-            $(".rating").rating();
-        });
-
-      </script>
-        
     </head>
 
     <body>
         {% include "navbar.html" %}
 
-        {% block room_detail %}{% endblock room_detail %}
-        {% block room_auth_pass %}{% endblock room_auth_pass %}
-        {% block header_teacher %}{% endblock header_teacher %}
-        {% block course_header %}{% endblock course_header %}
-        {% block student %}{% endblock student %}
-
         <div class="ui container" >
             {% block content %}{% endblock content %}
-            {% block profile %}{% endblock profile %}
-            {% block teacher %}{% endblock teacher %}
-            {% block create_room %}{% endblock create_room %}
-            {% block room %}{% endblock room %}
-            {% block password_change %}{% endblock password_change %}
+           
         </div>
         {% include "footer.html" %}
     </body>
-    <script>
-        $('.wish_icon').on('click', function(e){
-          var url_path = $(this).attr('href');
-          var icon = $(this).find('i');
-          e.preventDefault();
-          $.ajax({
-          url:url_path,
-          dataType:'html',
-          success:function(data){
-            data = JSON.parse(data)
-            if (data.is_wished){
-              icon.addClass('red');
-            }else{
-              icon.removeClass('red');
-      
-            }
-      
-          },
-          error: function(r){
-            console.log("error");
-          }
-        
-          });
-        });
-        $('.ui.dropdown').dropdown();
-
-        $('.blurring.dimmable.image').dimmer({on: 'hover'});
-    </script>
 </html>
