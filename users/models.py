@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django_countries.fields import CountryField
 from django.utils import timezone
 
+
 # Create your models here.
 
 User = settings.AUTH_USER_MODEL
@@ -37,8 +38,8 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class CustomUser(AbstractUser,mixins.GuardianUserMixin): 
-    email =  models.EmailField(_('email_address'), unique=True, name='email')
-    username =  models.CharField(_('username'), unique=True, max_length=128)
+    email =  models.EmailField( unique=True, name='email')
+    username =  models.CharField( unique=True, max_length=128)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     objects = UserManager()

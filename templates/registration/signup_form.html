@@ -10,10 +10,9 @@
   }
 </style>
 
-
 <div class="ui three column center aligned middle aligned grid">
   <div class="ui column">
-    <h2 class="ui teal header">Create a new account as {{ user_type }}</h2>
+    <h2 class="ui header" style="background-color: #0a3d62;">Create a new account</h2>
     <form class="ui form"  method="post">
       {% csrf_token %}  
       <div class="ui stacked segment">
@@ -41,39 +40,7 @@
             {{form.password2}}
           </div>
         </div>
-        
-        <!-- {% if user_type == 'teacher' %}
-        <div class="field">
-          <div class="ui dropdown selection">
-            <input type="hidden" name="gender">
-            <div class="default text">
-              <div class="ui left icon dropdown">
-                <i class="briefcase icon"></i>
-                your major
-              </div>
-            </div>
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              {% for major in form.teachermajors.field.queryset %}
-              <div class="item" data-value="{{ major.name }}">{{ major.name }}</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-        {% endif %} -->
-        
-        <!-- {% if user_type == 'student' %}
-        <div class="field">
-          <select multiple="" name="interests" class="ui fluid normal dropdown">
-            {% for interest in form.studentinterests.field.queryset %}
-            <option value="{{ interest.name }}">{{ interest.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        {% endif %}
-           -->
-          
-        <button type="submit" class="ui teal button fluid" name="button">Sign up</button>
+        <button type="submit" class="ui button fluid" name="button" style="background-color: #0a3d62;">Sign up</button>
         <div class="ui horizontal divider">
           Or SIGN UP 
         </div>

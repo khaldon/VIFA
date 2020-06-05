@@ -12,7 +12,7 @@
 <body>
   <div class="ui three column center aligned  middle aligned grid">
     <div class="ui column ">
-        <h2 class="ui teal header" >Log-in to your account</h2>
+        <h2 class="ui header" style="background-color: #0a3d62;" >Log-in to your account</h2>
         <form method="POST" class="ui form">
           {% csrf_token  %}
             <div class="ui stacked segment">
@@ -28,7 +28,7 @@
                         {{ form.password }}
                       </div>
                 </div>
-                <button class="ui teal button fluid">Login</button>
+                <button class="ui button fluid" style="background-color: #0a3d62;">Login</button>
                 <div class="ui horizontal divider">
                   Or LOGIN
                 </div>
