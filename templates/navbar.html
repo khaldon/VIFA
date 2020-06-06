@@ -5,10 +5,7 @@
         <img src="/images/logo.png">
         <div style="margin-left: 10px;" class="typing"><h4>Bringing the world together</h4></div>
       </div>
-      <div class="right menu">
-            <a class="ui item" href="{% url 'users:signup' %}" >Sign up</a>
-            <a class="ui item" href="{% url 'users:login' %}" >Login</a>
-      </div>
+
     {% if user.is_authenticated %}
     <div class="right menu">
         <div class="ui top right pointing dropdown item" style="margin-right: 12px;" >
@@ -21,6 +18,11 @@
             </div>
         </div>  
     </div>
+    {% else %}
+        <div class="right menu">
+            <a class="ui item" href="{% url 'users:signup' %}" >Sign up</a>
+            <a class="ui item" href="{% url 'users:login' %}" >Login</a>
+        </div>
     {% endif %}
 </div>  
 
