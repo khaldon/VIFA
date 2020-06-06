@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="ui top large menu" style="border: 0px; margin-top: 0px; border-radius: 0px;">
+    <div class="item item-icon" >
+        <img src="/images/logo.png">
+        <div style="margin-left: 10px;" class="typing"><h4>Bringing the world together</h4></div>
+      </div>
+      <div class="right menu">
+            <a class="ui item" href="{% url 'users:signup' %}" >Sign up</a>
+            <a class="ui item" href="{% url 'users:login' %}" >Login</a>
+      </div>
+    {% if user.is_authenticated %}
+    <div class="right menu">
+        <div class="ui top right pointing dropdown item" style="margin-right: 12px;" >
+            <img class="ui avatar image" src="{% static 'blocked.png' %}">
+            <span>{{user.username}}</span>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="{% url 'users:profile' %}" >My profile</a>
+                <a class="item" href="{% url 'users:logout' %}" >Logout</a>
+            </div>
+        </div>  
+    </div>
+    {% endif %}
+</div>  
+
+<script>
+    $('.ui.dropdown').dropdown();
+</script>

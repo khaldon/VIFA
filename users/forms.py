@@ -6,17 +6,21 @@ from django.forms.widgets import PasswordInput, TextInput
 from django.conf import settings
 from django.forms.widgets import ClearableFileInput
 
+# Create a user instance 
 User = settings.AUTH_USER_MODEL
 
+
+# Create custom file input for upload image for profile page 
 class CustomClearableFileInput(ClearableFileInput):
     template_name = 'users/custom_clear_file_input.html'
 
-
+# create a sign up form 
 class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = ('username','email')
     
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password1'].widget.attrs.update({'placeholder':'Password'})
@@ -31,14 +35,14 @@ class SignUpForm(UserCreationForm):
             user.save()
         return user
 
-
+# Create a custom edit form 
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('username','email')
 
-class CustomUserCreationForm(UserCreationForm):
-    
+# create a custom user form 
+class CustomUserCreationForm(UserCreationForm): 
     class Meta:
         model = CustomUser
         fields = ('email', 'username' )
@@ -47,13 +51,17 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].help_text = None
         self.fields['password2'].help_text = None 
+        self.fields['password1'].widget.attrs.update({'placeholder':'password'})
         
-
+# user a email instead of the default username 
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
         fields = ('email',)
+
+
+
 
 class CustomAuthForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput(attrs={'class':'validate','placeholder': 'Email'}))

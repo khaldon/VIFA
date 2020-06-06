@@ -5,14 +5,12 @@
   body > .grid{
     height:100%;
   }
-  body{
-    background-color:#f2f2f2;
-  }
+
 </style>
 
 <div class="ui three column center aligned middle aligned grid">
   <div class="ui column">
-    <h2 class="ui header" style="background-color: #0a3d62;">Create a new account</h2>
+    <h2 class="ui header" style="color: #0a3d62;">Create a new account</h2>
     <form class="ui form"  method="post">
       {% csrf_token %}  
       <div class="ui stacked segment">
@@ -40,7 +38,7 @@
             {{form.password2}}
           </div>
         </div>
-        <button type="submit" class="ui button fluid" name="button" style="background-color: #0a3d62;">Sign up</button>
+        <button type="submit" class="ui button fluid" name="button" style="background-color: #0a3d62; color: white;">Sign up</button>
         <div class="ui horizontal divider">
           Or SIGN UP 
         </div>
@@ -52,7 +50,7 @@
       </div>
     
     </form>
-    <div class="ui message"> Have account already ? <a href="{% url 'users:login' %}">Login</a></div>
+    <div class="ui message" style="background-color: white;"> Have account already ? <a href="{% url 'users:login' %}">Login</a></div>
     
     {% if form.errors %}
         <div class="ui red message">
