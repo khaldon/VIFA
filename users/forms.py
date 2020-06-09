@@ -60,9 +60,13 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = ('email',)
 
-
-
-
 class CustomAuthForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput(attrs={'class':'validate','placeholder': 'Email'}))
     password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
+
+class ProfileForm(forms.ModelForm):
+    bio = forms.CharField(required=False)
+
+    class Meta:
+        model = Profile
+        fields = ('birth_date','gender','country','city','bio','image')

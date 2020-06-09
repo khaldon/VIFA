@@ -7,7 +7,6 @@ from django.dispatch import receiver
 from django_countries.fields import CountryField
 from django.utils import timezone
 
-
 # Create your models here.
 
 User = settings.AUTH_USER_MODEL
