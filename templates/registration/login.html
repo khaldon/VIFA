@@ -1,18 +1,17 @@
 {% include 'css.html'%}
 
-
-<style media="screen">
+<style >
   body > .grid{
     height:100%;
   }
   body{
-    background-color:#f2f2f2;
+    background-color:#FAFAFA;
   }
 </style>
 <body>
   <div class="ui three column center aligned  middle aligned grid">
     <div class="ui column ">
-        <h2 class="ui teal header" >Log-in to your account</h2>
+        <h2 class="ui header" style="color: #0a3d62;" >Log-in to your account</h2>
         <form method="POST" class="ui form">
           {% csrf_token  %}
             <div class="ui stacked segment">
@@ -28,7 +27,7 @@
                         {{ form.password }}
                       </div>
                 </div>
-                <button class="ui teal button fluid">Login</button>
+                <button class="ui button fluid" style="background-color: #0a3d62; color: white;">Login</button>
                 <div class="ui horizontal divider">
                   Or LOGIN
                 </div>
@@ -40,7 +39,7 @@
                 <a href="{% url 'users:password_reset' %}">Forget you password ?</a>
             </div>
         </form>
-        <div class="ui message">Don't have account ?  Sign up <a  href="{% url 'users:teacher_signup' %}">As teacher</a> or <a  href="{% url 'users:student_signup' %}">As student</a></div>
+        <div class="ui message" style="background-color: white;">Don't have account ?  <a href="{% url 'users:signup' %}">Sign up</a> </div>
        
        {% if form.non_field_errors or form.username.errors or form.password.errors  %}
        <div class="ui red message">
