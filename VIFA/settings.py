@@ -95,10 +95,10 @@ WSGI_APPLICATION = 'VIFA.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'VIFA',
+        'NAME': 'vifa',
         'USER' : 'vifa',
         'PASSWORD' : 'vifa',
-        'HOST' : '127.0.0.1',
+        'HOST' : 'db',
         'PORT' : '5432',
     }
 }

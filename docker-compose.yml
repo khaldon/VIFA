@@ -1,0 +1,18 @@
+  version: '3'
+    
+  services:
+    db:
+      image: postgres
+      environment:
+        - POSTGRES_DB=vifa
+        - POSTGRES_USER=vifa
+        - POSTGRES_PASSWORD=vifa
+    web:
+      build: .
+      command: python manage.py runserver 0.0.0.0:8000
+      volumes:
+        - .:/vifa
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db

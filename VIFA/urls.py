@@ -19,7 +19,7 @@ from users.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('account/', include('users.urls')),
+    path('accounts/', include('users.urls')),
     path('room/', include('rooms.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
 

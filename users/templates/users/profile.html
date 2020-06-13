@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+    {% block content %} 
+    <form method="POST" class="ui form customForm">
+        {% csrf_token %}
+        <div class="ui grid" style="margin-top: 60px;">    
+            <div class="sixteen wide column">
+                {% if messages %}
+                {% for message in messages  %}
+                <div class="ui {% if message.tags == 'success' %} green message {% else %} red message {% endif %} custom_message">{{message}}</div>
+                {% endfor %}
+            {% endif %}
+            </div>
+            <div class="four wide column">
+                <div class="ui card">
+                    <div class="image">
+                        <img src="{{user.profile.get_picture}}">
+                        {{profile_form.image}}
+                    </div>
+                </div>
+             </div>
+             <div class="eight wide column right floated">     
+                <h4 class="ui dividing header" style="color: #0a3d62;">Personal Information</h4>
+                <div class="field">
+                    <label>Username</label>
+                    {{user_form.username}}
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    {{user_form.email}}
+                </div>
+                <div class="two fields">
+                    <div class="ten wide field">
+                        <label>Country</label>
+                        <select name="country" class="ui dropdown" id="select">
+                            {% for item in profile_form.country %}
+                                 <option value="{{item.pk}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="six wide field">
+                        <label>City</label>
+                        {{profile_form.city}}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="six field">
+                        <label >Gender</label>
+                        {{profile_form.gender}}
+                    </div>
+                    <div class="ten field">
+                        <label>Birthday</label>
+                        <div class="ui calendar" id="standard_calendar">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                {{profile_form.birth_date}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if request.user.is_student %}
+                <div class="field">
+                    <label>Interests</label>
+                    <select multiple="" name="interests" class="ui fluid normal dropdown custom_dropdown">
+                        {% for item in profile_form.interests %}
+                             <option value="{{item.pk}}">{{item}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% else %}
+                <div class="two fields">
+                    <div class="eight field">
+                        <label>Subjects</label>
+                        <select multiple="" name="subjects" class="ui fluid normal dropdown subjects_dropdown">
+                        {% for item in profile_form.subjects %}
+                             <option value="{{item.pk}}">{{item}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="eight field">
+                        <label>Courses</label>
+                        <select multiple="" name="course" class="ui fluid normal dropdown custom_dropdown">
+                        {% for item in profile_form.course %}
+                             <option value="{{item.pk}}">{{item}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="field">
+                    <label >Bio</label>
+                    {{profile_form.bio}}
+                    <span class="ui medium secondary grey text">Tell people about what you want and goals</span>
+                </div>
+                <button class="ui  button">Update</button>
+             </div>
+       
+        </div>
+    </form>
+    <div class="ui grid" >
+    <div class="four column row" style="margin-top: 30px;">
+        <div class="eight wide column right floated ">
+            <h4 class="ui dividing  header" style="color:#0a3d62">Changing Password</h4>
+            <a href="{% url 'users:password_change' %}" class="ui  button" style="color: #0a3d62;">Change your password</a>
+        </div>
+     </div>
+     </div>
+    <form class="ui form customForm" >
+        <div class="ui grid" >
+        <div class="eight column row" style="margin-top: 30px;" >
+            <div class="eight wide column right floated">
+                <h4 class="ui dividing red header">Delete Account</h4>
+                <button type="button" class="ui red button" id="delete">Delete Account</button>
+                <div class="ui basic modal delete">
+                    <div class="ui icon header">
+                      <i class="archive icon"></i>
+                        Are you sure that you want to delete {{ user.email }}
+                    </div>
+                    <div class="content">
+                      <p>Everything in your account will be removed</p>
+                    </div>
+                    <div class="actions">
+                      <div class="ui green ok inverted button ">
+                        <i class="remove icon"></i>
+                        No
+                      </div>
+                      <a href="{% url 'users:delete_user' user.username %}">
+                      <div class="ui red basic cancel inverted button">
+                        <i class="checkmark icon"></i>
+                        Yes
+                      </div>
+                      </a>
+                    </div>
+                  </div>
+                  
+            </div>
+        </div> 
+    </div>
+    </form>
+ <script>
+    $('#select').dropdown();
+    $('#standard_calendar').calendar({
+    monthFirst: false,type: 'date',formatter: {
+      date: function (date, settings) {
+        if (!date) return '';
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        return day + '/' + month + '/' + year;
+      }
+    }});
+    $('.ui.normal.dropdown.subjects_dropdown').dropdown({maxSelections: 3});
+    $('.custom_dropdown').dropdown({maxSelections: 20});
+    $('#delete').click(function(){$('.ui.basic.modal').modal('show');});
+    $(document).ready(function(){$('.custom_message').delay(3000).fadeOut(500);});
+    $('.ui.form').form({
+    on: 'blur',
+    fields: {
+      email: {
+        identifier  : 'email',
+        rules: [{type   : 'email',prompt : 'Please enter a valid e-mail'}]},
+      username: {
+        identifier  : 'username',
+        rules: [{type   : 'empty',prompt : 'Please enter a value'}]
+      },
+      city: {
+        identifier  : 'city',
+        rules: [{type   : 'empty',prompt : 'Please enter a value'}]
+      },
+      country: {
+        identifier  : 'country',
+        rules: [{type   : 'empty',prompt : 'Please enter a value'}]
+      },
+      birth_date: {
+        identifier  : 'birth_date',
+        rules: [{type   : 'empty',prompt : 'Please enter a value'}]
+      },
+      gender: {
+        identifier  : 'gender',
+        rules: [{type   : 'empty',prompt : 'Please select a dropdown value'}]
+      },
+      subjects: {
+        identifier  : 'subjects',
+        rules: [{type   : 'empty',prompt : 'Please select a dropdown value'}]
+      },
+      course: {
+        identifier  : 'course',
+        rules: [{type   : 'empty',prompt : 'Please select a dropdown value'}]
+      },
+      country: {
+        identifier  : 'country',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please select a dropdown value'
+          }
+        ]
+      }
+    }
+  });
+
+ </script>
+
+    {% endblock content %}

@@ -1,0 +1,7 @@
+Django>=2.0,<3.0
+psycopg2>=2.7,<3.0
+social-auth-app-django==3.4
+django-countries==6.1.2
+django-guardian
+psycopg2-binary
+pillow 
