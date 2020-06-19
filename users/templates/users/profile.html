@@ -14,7 +14,7 @@
             <div class="four wide column">
                 <div class="ui card">
                     <div class="image">
-                        <img src="{{user.profile.get_picture}}">
+                        <img alt="Image profile" src="{{user.profile.get_picture}}">
                         {{profile_form.image}}
                     </div>
                 </div>
@@ -111,7 +111,7 @@
         <div class="eight column row" style="margin-top: 30px;" >
             <div class="eight wide column right floated">
                 <h4 class="ui dividing red header">Delete Account</h4>
-                <button type="button" class="ui red button" id="delete">Delete Account</button>
+                <button type="button" class="ui red button" id="delete" style="margin-bottom: 80px">Delete Account</button>
                 <div class="ui basic modal delete">
                     <div class="ui icon header">
                       <i class="archive icon"></i>
@@ -139,7 +139,9 @@
     </div>
     </form>
  <script>
+    $('#id_gender').dropdown();
     $('#select').dropdown();
+
     $('#standard_calendar').calendar({
     monthFirst: false,type: 'date',formatter: {
       date: function (date, settings) {
@@ -176,8 +178,8 @@
         identifier  : 'birth_date',
         rules: [{type   : 'empty',prompt : 'Please enter a value'}]
       },
-      gender: {
-        identifier  : 'gender',
+      select: {
+        identifier  : 'select',
         rules: [{type   : 'empty',prompt : 'Please select a dropdown value'}]
       },
       subjects: {
@@ -187,15 +189,6 @@
       course: {
         identifier  : 'course',
         rules: [{type   : 'empty',prompt : 'Please select a dropdown value'}]
-      },
-      country: {
-        identifier  : 'country',
-        rules: [
-          {
-            type   : 'empty',
-            prompt : 'Please select a dropdown value'
-          }
-        ]
       }
     }
   });

@@ -8,16 +8,20 @@
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+    background-color: #0a3d62;
 }
 .custom-file-upload:hover{
-    background-color: #0069D9;
+    background-color: #0a3d62;
     color: white;
     transition: 0.4s;
 
 }
+.ui.fluid.button:hover{
+    background-color: #063658;
+}
 </style>
-<label for="file-upload" class="ui teal fluid button">
-    <i class="fas fa-upload"></i> Upload your image profile 
+<label for="file-upload" class="ui fluid button" style="background-color: #0a3d62; color: white">
+    <i class="fas fa-upload"></i> Upload your image profile
 </label>
 
     <input type="{{ widget.type }}" name="{{ widget.name }}"  id="file-upload">
