@@ -9,9 +9,10 @@
         - POSTGRES_PASSWORD=vifa
     web:
       build: .
+      restart: always
       command: python manage.py runserver 0.0.0.0:8000
       volumes:
-        - .:/vifa
+        - .:/VFIA
       ports:
         - "8000:8000"
       depends_on:

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rooms',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -94,12 +95,12 @@ WSGI_APPLICATION = 'VIFA.wsgi.application'
 
 DATABASES = {
     'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vifa',
-        'USER' : 'vifa',
-        'PASSWORD' : 'vifa',
-        'HOST' : 'db',
-        'PORT' : '5432',
+        'USER': 'vifa',
+        'PASSWORD': 'vifa',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 

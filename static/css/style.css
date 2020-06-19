@@ -1,16 +1,27 @@
 html, body{
     height: 100%;
+    min-height: 100%;
     margin: 0;
     background-color:#FAFAFA;
 
 }
 
 footer{
-    line-height: 50px;
-    padding: 0 20px;
+    border-top: 3px solid #0a3d62;
+    /*line-height: 50px;*/
+    /*padding: 0 20px;*/
     margin-bottom: -50px;
+    position: relative;
+    padding: 20px;
+    /*background-color: #5E6973;*/
+    /*background-color: #3a3b3a;*/
+    opacity: 0.7;
+    /*text-align: center;*/
+
     display: flex;
     justify-content: center;
+
+
 
 }
 .ui.menu .item-icon:before{
@@ -39,4 +50,13 @@ footer{
   @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: #0a3d62; }
+  }
+.ui.top.large.menu{
+    margin-bottom: 0px;
+}
+  .background-image{
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+
   }
