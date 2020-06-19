@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block create_room %}
+
+<form method="POST" class="ui form">
+    {% csrf_token %}
+    <div class="ui centered grid">
+        <div class="eight wide column">
+            <h4 class="ui dividing teal header">Create Room</h4>
+            <div class="field">
+                <label>Title</label>
+                {{room_form.title}}
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Stream time</label>
+                    <div class="ui calendar" id="standard_calendar">
+                        <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                                {{room_form.stream_time}}
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Max Viewers</label>
+                    {{room_form.max_viewers_amount}}
+                </div>
+            </div>
+           <div class="two fields">
+            <div class="field">
+                <label>Subject</label>
+                <select name="subject" id="select_subject" class="ui dropdown">
+                    {% for item in room_form.subjects %}
+                        <option value="{{item.pk}}">{{item}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label>Room password</label>
+                {{room_form.room_pass}}
+            </div>
+           </div>
+        
+        {% if room_form.room_type == 'private' %}
+        
+        {% endif %}
+            
+            <div class="field">
+                <label>Description</label>
+                {{room_form.description}}
+              
+            </div>
+            <button class="ui teal button">Create</button>
+            
+            {% if room_form.errors  %}
+                <div class="ui red message">
+                    {% for e in room_form  %}
+                    {{e.errors}}
+                    {% endfor %}
+                    {{room_form.non_field_errors}}
+                </div>
+           {% endif %}
+          <div class="ui error red message"></div>
+        </div>
+    </div>
+</form>
+<script>
+    $('#select_subject').dropdown();
+    $('#select_room_type').dropdown();
+    $('#standard_calendar').calendar({
+        type:'time',formatter:{
+            time: function(time, settings){
+                if(!time) return '';
+                var hour = time.getHours();
+                var minute = time.getMinutes();
+                return hour + ':' + minute;
+            }
+        }
+    });
+    $('.ui.form').form({
+    on: 'blur',
+    fields: {
+      title: {
+        identifier  : 'title',
+        rules: [{type   : 'empty',prompt : 'Please enter a <b> {name} </b> value'}]},
+      textarea: {
+        identifier  : 'description',
+        rules: [{type   : 'empty',prompt : 'Please enter a <b> {name} </b>  value'}]
+      },
+      room_type: {
+        identifier  : 'room_type',
+        rules: [{type   : 'empty',prompt : 'Please select a <b> {name}</b> value'}]
+      },
+      stream_time: {
+        identifier  : 'stream_time',
+        rules: [{type   : 'empty',prompt : 'Please enter a <b> {name} </b> value'}]
+      },
+      subject: {
+        identifier  : 'subject',
+        rules: [{type   : 'empty',prompt : 'Please select a <b> {name} </b>  value'}]
+      },
+      max_viewers_amount: {
+        identifier  : 'max_viewers_amount',
+        rules: [{type   : 'empty',prompt : 'Please select a <b> {name} </b>  value'}]
+      }
+    }
+  });
+
+</script>
+{% endblock create_room %}

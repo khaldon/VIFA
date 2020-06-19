@@ -1,0 +1,38 @@
+{% load static %}
+<div class="three wide column">
+    <div class="ui special primary cards">
+        <div class="card">
+        <div class="blurring dimmable image">
+            <div class="ui dimmer">
+            <div class="content">
+                <div class="center">
+                {% if room.viewers.all.count < room.max_viewers_amount %}
+                <a href="{% url 'rooms:auth_join' room=room uuid=room.invite_url  %}" class="ui inverted button">Join Room</a>
+                {% elif request.user in room.viewers.all %}
+                <a href="{% url 'rooms:auth_join' room=room uuid=room.invite_url  %}" class="ui inverted button">Open Room</a>
+                {% endif %}
+                </div>
+            </div>
+            </div>
+            <img src="{% static 'img/tom.jpg' %}">
+        </div>
+        <div class="content">
+            <a class="header center aligned">{{room.title}}</a>
+        </div>
+        <div class="extra content center aligned">
+            <div class="ui divider"></div>
+            <a><i class="users icon"></i>{{room.viewers.count}} viewers</a>
+            <div class="ui divider"></div>
+            <a>Max:{{room.max_viewers_amount}}</a>
+            {% for i in room.subjects.all  %}
+            <a class="ui violet label">{{i}}</a>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.special.cards .image').dimmer({on: 'hover'});    
+    $('.ui.dropdown').dropdown();
+</script>

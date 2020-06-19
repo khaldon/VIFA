@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block room %}
+<div class="ui padded grid centered" style="overflow: auto; max-height: 500px ;">
+    {% if rooms %}
+    <div class="sixteen wide column">
+    {% include "rooms/dropdown_order_search.html" %}
+    </div>
+        {% for room in rooms  %}
+           {% include "rooms/room_base.html" with room=room %}
+        {% endfor %}
+    {% else %}
+        <div class="ui message ">
+            <div class="header">You don't have any active rooms yet</div>
+        </div>
+    {% endif %} 
+</div>
+
+{% endblock room %}

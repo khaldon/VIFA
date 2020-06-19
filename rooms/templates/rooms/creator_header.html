@@ -1,0 +1,18 @@
+<div class="ui center aligned grid" style="margin-bottom: 10px;">
+    <div class="sixteen wide column"  style="padding: 0px;">
+        <div class="ui violet inverted segment">
+            <form class="ui inverted icon input" style="float: right; margin-top: 20px; margin-right: 10px;" action="{% url 'rooms:teacher_search_room' %}" method="GET">
+                    <input type="text" placeholder="Search your rooms" name="title__icontains">
+                <i class="search icon"></i>
+            </form>
+            <div class="ui large header" style="padding: 10px; margin: 10px; color: #d3beff; width: 220px;">
+                <a href="{% url 'rooms:teacher_created_rooms' user.username %}" style="color: white;">Rooms Dashboard</a> 
+            </div>
+            <div class="ui secondary violet inverted pointing menu" style="padding: 0px; ">
+                <a class="item active">
+                  Rooms
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

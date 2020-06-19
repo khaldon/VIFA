@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block room_detail %}
+<div class="ui grid">    
+  <div class="four wide column">
+    <div class="ui form">
+      <div style="height:400px;width:100%;overflow-y:scroll" id="div_data"></div>
+      <input type="text" name="message" id="message" placeholder="Message" style="padding:10px;width:100%; border-radius: 0px;">
+    </div>
+   {% if request.user in room.creator.all %}
+    <div class="ui action input item" style="padding-top:10px">
+     <input type="text" value="{{request.build_absolute_uri}}/join/" disabled>
+     <a class="ui teal right labeled icon button" id="invite_link" data-clipboard-text="{{ request.get_host }}/{{ room.invite_url }}/join/">
+       <i class="copy icon"></i>
+       Copy
+     </a>
+    </div>
+   {% endif %}
+  </div>
+    <div class="six wide column middle aligned center aligned" >
+      <h2>Streaming video Here</h2>
+    </div>
+    <div class="three wide column" style="padding: 0px; border-left: 1px solid rgb(230, 230, 230); overflow: auto; height: 100%; position: fixed; right:0px;">
+      {% if request.user.is_viewer %}
+      <div class="ui horizontal divider">Creator</div>
+      <div class="ui middle aligned selection list" >
+        {% for user in room.creator.all %}
+        {% if user.is_creator %}
+        <div class="item" style="border-radius: 0px;">
+          <img class="ui avatar image" src="{{user.profile.get_picture}}">
+          <div class="content">
+            <div class="header">{{ user.username }}</div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="ui horizontal divider">viewers</div>
+      <div class="ui middle aligned selection list" >
+        {% for user in room.viewers.all %}
+        {% if user.is_viewer %}
+        <div class="item" style="border-radius: 0px;">
+          <img class="ui avatar image" src="{{user.profile.get_picture}}">
+          <div class="content">
+            <div class="header">{{ user.username }}</div>
+          </div>
+          {% if request.user.is_creator %}
+              <a class="ui red mini button right floated" href="{% url 'rooms:ban_student' uuid=room.invite_url user_id=user.id  %}">Ban</a>
+          {% endif %}      
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+<script>
+    var roomName='{{ room_name }}';
+    var personname='{{ request.user.username }}';
+    var chatSocket=new WebSocket('ws://'+window.location.host+'/ws/chat/'+roomName+'/');
+    {% if request.user.is_anonymous %}
+        window.location.pathname = '{% url 'users:login' %}'
+        {% endif %}
+        // function typing(){
+        //     var user_typing = '<i class="icons"><i class="big comment outline outline icon grey"></i><i class=" center ellipsis horizontal icon grey"></i></i>';
+        //     var div=document.querySelector("#div_data");
+        //     div.innerHTML = user_typing
+        //   }
+    chatSocket.onmessage=function(e){
+        var data=JSON.parse(e.data)
+        var message=data['message']
+        var div=document.querySelector("#div_data");
+        if (data['creator']){
+          div.innerHTML+='<div style="margin-left:150px; float:right; witdh:100%"><div style="color:rgba(0,0,0,.4); margin-left:10px;">'+data['user']+' <i class="small star yellow icon"></i></div><a style="padding:6px; margin-bottom:8px;" class="ui right pointing violet basic label">'+message+' </a><img class="ui avatar image" style="margin-left:2px;" src="{{user.profile.get_picture}}"></div>';         
+
+        }else{
+          div.innerHTML+='<div style="width:100%"><div style="color:rgba(0,0,0,.4); margin-left:41px;">'+data['user']+'</div> <img class="ui avatar image" style="margin-left:2px;" src="{{user.profile.get_picture}}"><a style="padding:6px; margin-bottom:8px;" class="ui left pointing green basic label">'+message+'</a></div>';         
+        }
+    }
+    chatSocket.onclose=function(e){ 
+        var data=JSON.parse(e.data)
+        var message=data['message']
+        var div=document.querySelector("#div_data");
+        div.innerHTML+='<br><img class="ui avatar image" src="{% static "img/tom.jpg" %}"><a style="padding:10px; margin-bottom:8px;" class="ui right pointing teal basic label">'+message+'</a>';
+    }
+    document.addEventListener("keydown", function(event){
+      if(event.which == 13){
+        var message=document.querySelector("#message").value;
+        if(message.length == 0){
+          return false
+        }else{
+          chatSocket.send(JSON.stringify({'message':message}))
+          document.querySelector("#message").value=''
+        }
+        
+      }
+      })
+</script>
+<script src="{% static 'js/clipboard.min.js' %}"></script>
+<script type="text/javascript">
+    new ClipboardJS('#invite_link');
+
+</script>
+
+</div>
+{% endblock room_detail %}

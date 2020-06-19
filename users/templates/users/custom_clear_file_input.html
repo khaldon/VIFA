@@ -1,0 +1,23 @@
+<style>
+    input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    margin: 6px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.custom-file-upload:hover{
+    background-color: #0069D9;
+    color: white;
+    transition: 0.4s;
+
+}
+</style>
+<label for="file-upload" class="ui teal fluid button">
+    <i class="fas fa-upload"></i> Upload your image profile 
+</label>
+
+    <input type="{{ widget.type }}" name="{{ widget.name }}"  id="file-upload">

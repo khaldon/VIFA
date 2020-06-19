@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block room_auth_pass %}
+<form method='post' class='ui form' name="myForm">
+    {% csrf_token %}
+    <div class="ui middle aligned centered grid">
+        <div class="four wide column">
+            <h4 class="ui dividing teal header">Enter room password</h4>
+            <div class="field">
+                <label>Room password</label>
+                {{form_auth.password2}}
+            </div>
+            <button type="submit" class="ui teal button" id="submit_password" name="submit">join</button>
+            {% if messages %}
+                {% for message in messages  %}
+                    {% if message.tags == 'success' %}  
+                         <div class="ui green message">{{message}}</div>
+                         {% else %}
+                         <div class="ui red message">{{message}}</div>
+                    {% endif %} 
+                {% endfor %}
+            {% endif %}
+            {% if form_auth.errors %}
+                {% for i in form_auth  %}
+                <div class="ui red message">
+                    {{i.errors}}
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</form> 
+<script>
+function validateForm() {
+  var x = document.forms["myForm"]["submit"].value;
+  if (x == "") {
+    return false;
+  }else{
+    document.querySelector("#submit_password").onclick=function(e){
+        var personName = '{{request.user.username}}';
+        var roomName='{{uuid}}';        
+        window.location.pathname='/rooms/rooms/'+roomName+'/'+personName;
+    }
+  }
+}
+
+
+</script>
+{% endblock room_auth_pass %}

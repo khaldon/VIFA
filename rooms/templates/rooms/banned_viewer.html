@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block teacher %}
+<h2 class="ui large header center aligned" style="margin: 20px;">All banned viewer</h2>
+  <div class="ui grid">
+    {% if teacher_room %}
+    {% for room in teacher_room  %}
+      <div class="three wide column">
+          <div class="ui special primary cards">
+              <div class="card">
+              <div class="blurring dimmable image">
+                  <img src="{% static 'img/tom.jpg' %}">
+              </div>
+              <div class="content">
+                  <a class="header center aligned">{{room.title}}</a>
+              </div>
+              <div class="extra content center aligned">
+                  <div class="ui divider"></div>
+                  <a><i class="users icon"></i>{{room.viewer.count}} viewer</a>
+                  <div class="ui divider"></div>
+                  <a>Max:{{room.max_viewer_amount}}</a>
+                  {% for i in room.subjects.all  %}
+                  <a class="ui violet label">{{i}}</a>
+                  {% endfor %}
+              </div>
+              </div>
+          </div>
+      </div>
+      <div class="thirteen wide column">
+        <div class="ui middle aligned selection list" style="overflow: auto; height: 420px;">
+          {% if room.banned_viewer.all %}
+            {% for viewer in room.banned_users.all  %}
+            <div class="item">
+              <img class="ui avatar image" src="{{viewer.profile.get_picture }}">
+              <div class="content">
+                <div class="header">
+                  {{viewer}}
+                  <a href="{% url 'rooms:ban_viewer' uuid=room.invite_url user_id=viewer.id %}" class="ui green mini button" style="position: absolute; right: 20px; top: 20px;">Unban</a>
+
+                </div>
+
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+          <div class="item">
+            <div class="content">
+              <div class="header">You don't have any banned viewer in this room</div>
+            </div>
+          </div>
+            
+          {% endif %}
+            
+       
+        </div>
+      </div>
+      <div class="ui divider row"></div>
+
+
+    {% endfor %}
+    {% else %}
+      <div class="ui message">
+        <div class="header">You have not any created rooms yet</div>
+      </div>
+    {% endif %}
+  </div>
+<script>
+</script>
+   
+
+{% endblock teacher %}

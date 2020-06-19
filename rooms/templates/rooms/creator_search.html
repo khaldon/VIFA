@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_teacher %}
+    {% include "rooms/teacher_header.html" %}
+{% endblock header_teacher %}
+{% block teacher %}
+<div class="ui padded grid" style="overflow: auto; max-height: 500px;">       
+    <div class="sixteen wide column">
+        {% include "rooms/dropdown_order_search_creator.html" %}
+    </div>
+    {% for room in filter.qs  %}
+        {% include "rooms/room_base.html" with room=room %}
+    {% endfor %} 
+</div>
+<script>
+    $('.special.cards .image').dimmer({on: 'hover'});    
+    $('.ui.dropdown').dropdown();
+</script>
+
+{% endblock teacher %}

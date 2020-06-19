@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_teacher %}
+    {% include "rooms/creator_header.html" %}
+{% endblock header_teacher %}
+{% block room %}
+
+<div class="ui grid">
+    <div class="sixteen wide column">
+        {% include "rooms/dropdown_order_search_creator.html" %}
+    </div>
+    {% if teacher_rooms %}
+        {% for room in teacher_rooms %}
+            {% include "rooms/room_base" with room=room %}
+        {% endfor %}
+    {% else %}
+        <div class="ui message sixteen wide column">
+            <div class="header">You have not any created rooms yet</div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock room %}
